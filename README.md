@@ -6,9 +6,14 @@ establish class like object that you want to have inheritance model.
 
 
 There are three core objects. 
+
 AObject : that allows inheritance and extention 
+
 Util    : Utility files that would be useful for any javascript 
+
 Log     : logger that wraps console. 
+
+
 
 
 It could be used as npm module ( require / import ) structure, however, 
