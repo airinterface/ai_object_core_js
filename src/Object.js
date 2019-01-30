@@ -20,6 +20,7 @@
  */
 
 (function() {
+  var Util = com.ai.Util;
   this.AObject = (function() {
     var nameProp = '__name__';
     var createNamedConstructor = function( name, constructor ) {
@@ -56,7 +57,12 @@
       }
       return obj;
     };
-    AObject.uniqueID = 1;
+    AObject._uniqueId = 1;
+
+    AObject.uniqueId = function( header ) {
+      return header + AObject._uniqueId++;
+    };
+
     AObject.extends = function( protoVal, staticVal ) {
         var name = 'child';
         var constructor = null;
@@ -139,8 +145,8 @@
 
     AObject.prototype.debugFlag = false;
 
-    AObject.prototype.uniqueID  = function( header ){
-      return header + AObject.uniqueID++;
+    AObject.prototype.uniqueId  = function( header ){
+      return AObject.uniqueId( header );
     };
 
     AObject.prototype.toString = function() {
@@ -188,6 +194,7 @@
       }
       return null;
     };
+
 
     return AObject;
 

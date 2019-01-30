@@ -2,7 +2,7 @@
   "name": "ai_object_core",
   "version": "1.0.0",
   "description": "Observer and trigger call back when DOM Node is attached. ",
-  "main": "bin/ai_node_observer.js",
+  "main": "dist/ai_object_core.js",
   "scripts": {
     "test": "npm test",
     "build": "webpack"

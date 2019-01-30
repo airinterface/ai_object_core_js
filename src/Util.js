@@ -151,6 +151,13 @@
       }
       return obj;
     };
+    Util.cloneArray = function( arr ) {
+      if( typeof arr == 'array ') {
+        return arr.slice( 0, arr.length );
+      } else {
+        throw Error ( 'object is not array' );
+      }
+    },
 
     Util.replacePattern = function( template, data, pattern ) {
       var lPattern, matchedKey, tmp, tmpStr, val;

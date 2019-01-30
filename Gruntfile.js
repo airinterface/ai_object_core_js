@@ -3,7 +3,6 @@ const path      = require('path');
 let _path       = path.resolve(__dirname, 'require.json')
 let _required   = require(_path);
 let _requiredjs = _required.map( (f) => { return path.join(__dirname, 'src', f); });
-const webpackConfig = require('./.config/webpack.config.js');
 
 
 var initializeTmpDir = ( dir )=>{
@@ -36,21 +35,20 @@ module.exports = function( grunt ) {
       }
     },
 
-    webpack: {
-      options: {
-        stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
-      },
-      prod: webpackConfig,
-      dev: Object.assign({ watch: true }, webpackConfig)
+    shell: {
+        webpack: {
+          command: () => 'webpack --config config/webpack.config.js'
+        }
     }
   });
-  
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-webpack');
-  grunt.registerTask('build', ['concat']);
+  grunt.registerTask('build', ['concat', 'shell:webpack']);
   grunt.registerTask('default', []);
-
 
 
 }

@@ -49,22 +49,14 @@
     };
 
     Log.initialize = function() {
-      window.onerror = function(e, url, lineNumber, column, error) {
-        Log.logError(e, url, lineNumber, column, error);
-        return true;
-      };
-      return null;
-    };
-
-    Log.initialize = function() {
-      // @yuri: can't we just do
-      // if( Log.debugFlag || !!debugFlag ) {
-
-      if( Log.debugFlag || ((typeof debugFlag !== "undefined" && debugFlag !== null) ? debugFlag : false) ) {
-        return window.onerror = function( e, url, lineNumber ) {
-          return alert( "" + e + "url:" + url + "lineNumber:" + lineNumber );
+      if(  Log.debugFlag  && 
+          typeof self['onerror'] != 'undefined' ) {
+        self.onerror = function(e, url, lineNumber, column, error) {
+          Log.logError(e, url, lineNumber, column, error);
+          return true;
         };
       }
+      return null;
     };
 
     Log.log = function() {
@@ -105,8 +97,10 @@
 
     Log.logToServer = function( msg ) {
       var img;
-      img = new Image();
-      return img.src = "_clear.png?msg=" + msg + "&_esTime=" + ((new Date()).getTime());
+      if( typeof Image != 'undefined' ){
+        img = new Image();
+        img.src = "_clear.png?msg=" + msg + "&_aTime=" + ((new Date()).getTime());
+      }
     };
 
     Log.dumpObj = function( obj, level ) {
